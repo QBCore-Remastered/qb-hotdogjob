@@ -33,7 +33,7 @@ AddEventHandler('onResourceStop', function(resource)
         return
     end
 
-    if StandObject ~= nil then
+    if StandObject then
         DeleteObject(StandObject)
         ClearPedTasksImmediately(cache.ped)
     end
@@ -62,7 +62,7 @@ local function UpdateBlip()
         CreateThread(function()
             local coords = Config.Locations["take"].coords
 
-            if HotdogBlip ~= nil then
+            if HotdogBlip then
                 RemoveBlip(HotdogBlip)
             end
 
@@ -98,7 +98,7 @@ local function GetAvailableHotdog()
         end
     end
 
-    if next(AvailableHotdogs) ~= nil then
+    if next(AvailableHotdogs) then
         local Random = math.random(1, #AvailableHotdogs)
 
         retval = AvailableHotdogs[Random].key
@@ -110,7 +110,7 @@ end
 local function UpdateLevel()
     local MyRep = PlayerData.metadata.jobrep.hotdog
 
-    if MyRep ~= nil then
+    if MyRep then
         if MyRep >= 1 and MyRep < 50 then
             Config.MyLevel = 1
         elseif MyRep >= 50 and MyRep < 100 then
@@ -335,8 +335,8 @@ local function HotdogLoop()
             local PlayerPos = GetEntityCoords(cache.ped)
             local ClosestObject = GetClosestObjectOfType(PlayerPos.x, PlayerPos.y, PlayerPos.z, 3.0, joaat('prop_hotdogstand_01'), 0, 0, 0)
 
-            if StandObject ~= nil then
-                if ClosestObject ~= nil and ClosestObject == StandObject then
+            if StandObject then
+                if ClosestObject and ClosestObject == StandObject then
                     local ObjectOffset = GetOffsetFromEntityInWorldCoords(ClosestObject, 1.0, 0.0, 1.0)
                     local ObjectDistance = #(PlayerPos - vec3(ObjectOffset.x, ObjectOffset.y, ObjectOffset.z))
 
@@ -346,7 +346,7 @@ local function HotdogLoop()
 
                             if IsControlJustPressed(0, 47) then
                                 if SellingData.Enabled then
-                                    if SellingData.Target ~= nil then
+                                    if SellingData.Target then
                                         SetPedKeepTask(SellingData.Target, false)
                                         SetEntityAsNoLongerNeeded(SellingData.Target)
                                         ClearPedTasksImmediately(SellingData.Target)
@@ -397,8 +397,8 @@ local function HotdogLoop()
             local PlayerPos = GetEntityCoords(cache.ped)
             local ClosestObject = GetClosestObjectOfType(PlayerPos.x, PlayerPos.y, PlayerPos.z, 3.0, joaat('prop_hotdogstand_01'), 0, 0, 0)
 
-            if StandObject ~= nil then
-                if ClosestObject ~= nil and ClosestObject == StandObject then
+            if StandObject then
+                if ClosestObject and ClosestObject == StandObject then
                     local ObjectOffset = GetOffsetFromEntityInWorldCoords(StandObject, 0.0, 0.0, 1.0)
                     local ObjectDistance = #(PlayerPos - vec3(ObjectOffset.x, ObjectOffset.y, ObjectOffset.z))
 
@@ -450,7 +450,7 @@ local function StartWorking()
                             action = function()
                                 if not IsPushing then
                                     if SellingData.Enabled then
-                                        if SellingData.Target ~= nil then
+                                        if SellingData.Target then
                                             SetPedKeepTask(SellingData.Target, false)
                                             SetEntityAsNoLongerNeeded(SellingData.Target)
                                             ClearPedTasksImmediately(SellingData.Target)
@@ -561,7 +561,7 @@ end
 local function SellToPed(ped)
     SellingData.HasTarget = true
 
-    if SellingData.RecentPeds ~= nil then
+    if SellingData.RecentPeds then
         for i = 1, #SellingData.RecentPeds, 1 do
             if SellingData.RecentPeds[i] == ped then
                 SellingData.HasTarget = false
@@ -578,7 +578,7 @@ local function SellToPed(ped)
 
     SellingData.Hotdog = GetAvailableHotdog()
 
-    if SellingData.Hotdog ~= nil then
+    if SellingData.Hotdog then
         if Config.Stock[SellingData.Hotdog].Current > 1 then
             if Config.Stock[SellingData.Hotdog].Current >= 3 then
                 HotdogsForSale = math.random(1, 3)
@@ -589,7 +589,7 @@ local function SellToPed(ped)
             HotdogsForSale = 1
         end
 
-        if SellingData.Hotdog ~= nil then
+        if SellingData.Hotdog then
             SellingPrice = math.random(Config.Stock[SellingData.Hotdog].Price[Config.MyLevel].min, Config.Stock[SellingData.Hotdog].Price[Config.MyLevel].max)
         end
     end
@@ -651,7 +651,7 @@ local function SellToPed(ped)
         pedDist = #(coords - pedCoords)
 
         if PlayerDist < 4 then
-            if SellingData.Hotdog ~= nil then
+            if SellingData.Hotdog then
                 if HotdogsForSale == 0 and SellingPrice == 0 then
                     if Config.Stock[SellingData.Hotdog].Current > 1 then
                         if Config.Stock[SellingData.Hotdog].Current >= 3 then
@@ -663,7 +663,7 @@ local function SellToPed(ped)
                         HotdogsForSale = 1
                     end
 
-                    if SellingData.Hotdog ~= nil then
+                    if SellingData.Hotdog then
                         SellingPrice = math.random(Config.Stock[SellingData.Hotdog].Price.min, Config.Stock[SellingData.Hotdog].Price.max)
                     end
                 end
@@ -762,7 +762,7 @@ local function SellToPed(ped)
                                     AnimPlayed = true
                                 end
 
-                                if HotdogObject == nil then
+                                if not HotdogObject then
                                     HotdogObject = CreateObject(joaat('prop_cs_hotdog_01'), 0, 0, 0, true, true, true)
                                 end
 
@@ -776,7 +776,7 @@ local function SellToPed(ped)
                             Wait(0)
                         end
 
-                        if HotdogObject ~= nil then
+                        if HotdogObject then
                             DetachEntity(HotdogObject, 1, 1)
                             DeleteEntity(HotdogObject)
                         end
@@ -851,7 +851,7 @@ local function ToggleSell()
     local objpos = GetEntityCoords(StandObject)
     local dist = #(pos - objpos)
 
-    if StandObject ~= nil then
+    if StandObject then
         if dist < 5.0 then
             CreateThread(function()
                 while true do
@@ -861,7 +861,7 @@ local function ToggleSell()
                         if not SellingData.HasTarget then
                             local PlayerPeds = {}
 
-                            if next(PlayerPeds) == nil then
+                            if not next(PlayerPeds) then
                                 for _, player in ipairs(GetActivePlayers()) do
                                     local ped = GetPlayerPed(player)
 
@@ -916,7 +916,7 @@ RegisterNetEvent('qb-hotdogjob:client:ToggleSell', function()
 
         ToggleSell()
     else
-        if SellingData.Target ~= nil then
+        if SellingData.Target then
             SetPedKeepTask(SellingData.Target, false)
             SetEntityAsNoLongerNeeded(SellingData.Target)
             ClearPedTasksImmediately(SellingData.Target)
@@ -932,7 +932,7 @@ RegisterNetEvent('qb-hotdogjob:staff:DeletStand', function()
     local pos = GetEntityCoords(cache.ped)
     local Object = GetClosestObjectOfType(pos.x, pos.y, pos.z, 10.0, joaat('prop_hotdogstand_01'), true, false, false)
 
-    if Object ~= nil then
+    if Object then
         local ObjectCoords = GetEntityCoords(Object)
         local ObjectDistance = #(pos - ObjectCoords)
 
