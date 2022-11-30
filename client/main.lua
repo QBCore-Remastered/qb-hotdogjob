@@ -350,7 +350,7 @@ local function HotdogLoop()
                                         SetPedKeepTask(SellingData.Target, false)
                                         SetEntityAsNoLongerNeeded(SellingData.Target)
                                         ClearPedTasksImmediately(SellingData.Target)
-                                        FreezeEntityPosition(Playcache.pederPed, true)
+                                        FreezeEntityPosition(cache.ped, true)
                                     end
 
                                     SellingData.Enabled = false
