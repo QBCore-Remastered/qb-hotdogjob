@@ -41,7 +41,7 @@ end)
 
 -- Local Functions
 local function DrawText3Ds(x, y, z, text)
-	SetTextScale(0.35, 0.35)
+    SetTextScale(0.35, 0.35)
     SetTextFont(4)
     SetTextColour(255, 255, 255, 215)
     SetTextCentre(true)
@@ -60,7 +60,7 @@ end
 local function UpdateBlip()
     if PlayerData.job.name == 'hotdog' then
         CreateThread(function()
-            local coords = Config.Locations["take"].coords
+            local coords = Config.Locations.take.coords
 
             if HotdogBlip then
                 RemoveBlip(HotdogBlip)
@@ -427,7 +427,7 @@ local function StartWorking()
     QBCore.Functions.TriggerCallback('qb-hotdogjob:server:HasMoney', function(HasMoney)
         if HasMoney then
             if Config.UseTarget then
-                local SpawnCoords = Config.Locations["spawn"].coords
+                local SpawnCoords = Config.Locations.spawn.coords
 
                 IsWorking = true
 
@@ -499,7 +499,7 @@ local function StartWorking()
 
                 QBCore.Functions.Notify(Lang:t("success.deposit", {deposit = Config.StandDeposit}), 'success')
             else
-                local SpawnCoords = Config.Locations["spawn"].coords
+                local SpawnCoords = Config.Locations.spawn.coords
 
                 IsWorking = true
 
@@ -676,8 +676,8 @@ local function SellToPed(ped)
 
                         exports.ox_target:addEntity(networkId, {
                             {
-                                name = 'ox:option1',
-                                icon = 'fas fa-hand-holding-dollar',
+                                name = 'qb-hotdogjob:sell',
+                                icon = "fa-solid fa-hand-holding-dollar",
                                 label = Lang:t("info.sell_dogs_target", {
                                     value = HotdogsForSale,
                                     value2 = (HotdogsForSale * SellingPrice)
@@ -905,7 +905,7 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
 end)
 
 RegisterNetEvent('qb-hotdogjob:client:UpdateReputation', function(JobRep)
-    PlayerData.metadata["jobrep"] = JobRep
+    PlayerData.metadata.jobrep = JobRep
 
     UpdateLevel()
 end)
@@ -960,9 +960,9 @@ end)
 CreateThread(function()
     if Config.UseTarget then
         exports.ox_target:addBoxZone({
-            coords = Config.Locations["take"].coords,
-            size = Config.Locations["take"].size,
-            rotation = Config.Locations["take"].rotation,
+            coords = Config.Locations.take.coords,
+            size = Config.Locations.take.size,
+            rotation = Config.Locations.take.rotation,
             options = {
                 {
                     name = 'qb-hotdogjob:take',
@@ -986,9 +986,9 @@ CreateThread(function()
         local inZone = false
 
         lib.zones.box({
-            coords = Config.Locations["take"].coords,
-            size = Config.Locations["take"].size,
-            rotation = Config.Locations["take"].rotation,
+            coords = Config.Locations.take.coords,
+            size = Config.Locations.take.size,
+            rotation = Config.Locations.take.rotation,
             onEnter = function(_)
                 inZone = true
 

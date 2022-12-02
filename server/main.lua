@@ -49,11 +49,11 @@ end)
 RegisterNetEvent('qb-hotdogjob:server:UpdateReputation', function(quality)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-    local JobReputation = Player.PlayerData.metadata["jobrep"]
+    local JobReputation = Player.PlayerData.metadata.jobrep
 
     if quality == "exotic" then
-        if JobReputation["hotdog"] and JobReputation["hotdog"] + 3 > Config.MaxReputation then
-            JobReputation["hotdog"] = Config.MaxReputation
+        if JobReputation.hotdog and JobReputation.hotdog + 3 > Config.MaxReputation then
+            JobReputation.hotdog = Config.MaxReputation
 
             Player.Functions.SetMetaData("jobrep", JobReputation)
 
@@ -61,14 +61,14 @@ RegisterNetEvent('qb-hotdogjob:server:UpdateReputation', function(quality)
             return
         end
 
-        if not JobReputation["hotdog"] then
-            JobReputation["hotdog"] = 3
+        if not JobReputation.hotdog then
+            JobReputation.hotdog = 3
         else
-            JobReputation["hotdog"] = JobReputation["hotdog"] + 3
+            JobReputation.hotdog = JobReputation.hotdog + 3
         end
     elseif quality == "rare" then
-        if JobReputation["hotdog"] and JobReputation["hotdog"] + 2 > Config.MaxReputation then
-            JobReputation["hotdog"] = Config.MaxReputation
+        if JobReputation.hotdog and JobReputation.hotdog + 2 > Config.MaxReputation then
+            JobReputation.hotdog = Config.MaxReputation
 
             Player.Functions.SetMetaData("jobrep", JobReputation)
 
@@ -76,14 +76,14 @@ RegisterNetEvent('qb-hotdogjob:server:UpdateReputation', function(quality)
             return
         end
 
-        if not JobReputation["hotdog"] then
-            JobReputation["hotdog"] = 2
+        if not JobReputation.hotdog then
+            JobReputation.hotdog = 2
         else
-            JobReputation["hotdog"] = JobReputation["hotdog"] + 2
+            JobReputation.hotdog = JobReputation.hotdog + 2
         end
     elseif quality == "common" then
-        if JobReputation["hotdog"] and JobReputation["hotdog"] + 1 > Config.MaxReputation then
-            JobReputation["hotdog"] = Config.MaxReputation
+        if JobReputation.hotdog and JobReputation.hotdog + 1 > Config.MaxReputation then
+            JobReputation.hotdog = Config.MaxReputation
 
             Player.Functions.SetMetaData("jobrep", JobReputation)
 
@@ -91,10 +91,10 @@ RegisterNetEvent('qb-hotdogjob:server:UpdateReputation', function(quality)
             return
         end
 
-        if not JobReputation["hotdog"] then
-            JobReputation["hotdog"] = 1
+        if not JobReputation.hotdog then
+            JobReputation.hotdog = 1
         else
-            JobReputation["hotdog"] = JobReputation["hotdog"] + 1
+            JobReputation.hotdog = JobReputation.hotdog + 1
         end
     end
 
