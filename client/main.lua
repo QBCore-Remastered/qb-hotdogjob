@@ -623,7 +623,7 @@ local function SellToPed(ped)
                         sellHotDog = exports['ox_target']:addSphereZone({
                             coords = pedCoords,
                             radius = 0.5,
-                            debug = true,
+                            debug = false,
                             options = {
                                 {
                                     icon = 'fas fa-hand-holding-dollar',
