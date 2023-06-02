@@ -189,7 +189,7 @@ local function CheckLoop()
                         end
                     end
 
-                    if IsPedShooting(cache.ped) or IsPlayerFreeAiming(PlayerId()) or IsPedInMeleeCombat(cache.ped) then
+                    if IsPedShooting(cache.ped) or IsPlayerFreeAiming(cache.ped) or IsPedInMeleeCombat(cache.ped) then
                         LetKraamLose()
                     end
 
